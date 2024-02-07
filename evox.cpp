@@ -37,21 +37,21 @@ double apply_operation(double a, double b, char op) {
 double evox(const std::string& expression) {
 	std::stack<double> numbers;
 	std::stack<char> operators;
-	bool readingNumber = false;
-	double currentNumber = 0;
+	bool reading_number = false;
+	double current_number = 0;
 	for (char c : expression) {
 		if (isdigit(c)) {
-			if (readingNumber) {
-				currentNumber = currentNumber * 10 + (c - '0');
+			if (reading_number) {
+				current_number = current_number * 10 + (c - '0');
 			} else {
-				currentNumber = c - '0';
-				readingNumber = true;
+				current_number = c - '0';
+				reading_number = true;
 			}
 		} else {
-			if (readingNumber) {
-				numbers.push(currentNumber);
-				currentNumber = 0;
-				readingNumber = false;
+			if (reading_number) {
+				numbers.push(current_number);
+				current_number = 0;
+				reading_number = false;
 			}
 			if (c == '(') {
 				operators.push(c);
@@ -80,8 +80,8 @@ double evox(const std::string& expression) {
 			}
 		}
 	}
-	if (readingNumber) {
-		numbers.push(currentNumber);
+	if (reading_number) {
+		numbers.push(current_number);
 	}
 	while (!operators.empty()) {
 		char op = operators.top();
