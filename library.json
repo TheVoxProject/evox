@@ -1,0 +1,9 @@
+{
+  "name": "evox",
+  "version": "v0.1",
+  "export": {
+    "include": [
+      "evox.*"
+    ]
+  }
+}
