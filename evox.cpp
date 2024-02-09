@@ -16,7 +16,7 @@ int get_precedence(char op) {
 	}
 }
 
-// Tiny utility function to apply operations to operands. This mainly exists so I don't have to paste this logic all over the main ifunction.
+// Tiny utility function to apply operations to operands. This mainly exists so I don't have to paste this logic all over the main function.
 double apply_operation(double a, double b, char op) {
 	switch (op) {
 	case '^':
