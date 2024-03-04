@@ -1,7 +1,7 @@
-#include <iostream>
 #include <string>
 #include <stack>
 #include <cmath>
+#include <stdexcept>
 
 int get_precedence(char op) {
 	switch (op) {
@@ -41,6 +41,7 @@ double evox(const std::string& expression) {
 	bool reading_number = false;
 	double current_number = 0;
 	double decimal_place = 10; // To handle decimal digits
+	int open_parentheses_count = 0;
 	for (char c : expression) {
 		if (isdigit(c) || c == '.') { // Allow digits and decimal point
 			if (c == '.') {
@@ -63,7 +64,11 @@ double evox(const std::string& expression) {
 			}
 			if (c == '(') {
 				operators.push(c);
+				open_parentheses_count++;
 			} else if (c == ')') {
+				if (open_parentheses_count == 0) {
+					throw std::runtime_error("Mismatched parentheses: Too many closing parentheses");
+				}
 				while (!operators.empty() && operators.top() != '(') {
 					char op = operators.top();
 					operators.pop();
@@ -73,7 +78,12 @@ double evox(const std::string& expression) {
 					numbers.pop();
 					numbers.push(apply_operation(a, b, op));
 				}
-				operators.pop();
+				if (!operators.empty()) {
+					operators.pop(); // Pop '('
+					open_parentheses_count--;
+				} else {
+					throw std::runtime_error("Mismatched parentheses: Too many closing parentheses");
+				}
 			} else {
 				while (!operators.empty() && get_precedence(operators.top()) >= get_precedence(c)) {
 					char op = operators.top();
@@ -91,6 +101,9 @@ double evox(const std::string& expression) {
 	if (reading_number) {
 		numbers.push(current_number);
 	}
+	if (open_parentheses_count > 0) {
+		throw std::runtime_error("Mismatched parentheses: Too many opening parentheses");
+	}
 	while (!operators.empty()) {
 		char op = operators.top();
 		operators.pop();
@@ -99,6 +112,9 @@ double evox(const std::string& expression) {
 		double a = numbers.top();
 		numbers.pop();
 		numbers.push(apply_operation(a, b, op));
+	}
+	if (numbers.size() != 1) {
+		throw std::runtime_error("Invalid expression");
 	}
 	return numbers.top();
 }
