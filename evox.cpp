@@ -79,7 +79,7 @@ double evox(const std::string& expression) {
 					numbers.push(apply_operation(a, b, op));
 				}
 				if (!operators.empty()) {
-					operators.pop(); // Pop '('
+					operators.pop();
 					open_parentheses_count--;
 				} else {
 					throw std::runtime_error("Mismatched parentheses: Too many closing parentheses");
