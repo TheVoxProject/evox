@@ -1,6 +1,8 @@
-#include "evox.h"
+#include <iostream>
+#include <string>
+#include <stack>
+#include <cmath>
 
-// Utility function to get the precedence of a character according to PEMDAS.
 int get_precedence(char op) {
 	switch (op) {
 	case '^':
@@ -16,7 +18,6 @@ int get_precedence(char op) {
 	}
 }
 
-// Tiny utility function to apply operations to operands. This mainly exists so I don't have to paste this logic all over the main function.
 double apply_operation(double a, double b, char op) {
 	switch (op) {
 	case '^':
@@ -39,18 +40,25 @@ double evox(const std::string& expression) {
 	std::stack<char> operators;
 	bool reading_number = false;
 	double current_number = 0;
+	double decimal_place = 10; // To handle decimal digits
 	for (char c : expression) {
-		if (isdigit(c)) {
-			if (reading_number) {
-				current_number = current_number * 10 + (c - '0');
+		if (isdigit(c) || c == '.') { // Allow digits and decimal point
+			if (c == '.') {
+				decimal_place = 0.1;
 			} else {
-				current_number = c - '0';
-				reading_number = true;
+				if (reading_number) {
+					current_number += (c - '0') * decimal_place;
+					decimal_place *= 0.1;
+				} else {
+					current_number = current_number * 10 + (c - '0');
+				}
 			}
+			reading_number = true;
 		} else {
 			if (reading_number) {
 				numbers.push(current_number);
 				current_number = 0;
+				decimal_place = 10; // Reset decimal place
 				reading_number = false;
 			}
 			if (c == '(') {
