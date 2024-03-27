@@ -1,8 +1,8 @@
 #pragma once
 
-#include <iostream>
-#include <stack>
-#include <cctype>
 #include <cmath>
+#include <stack>
+#include <stdexcept>
+#include <string>
 
-double evox(const std::string& expression);
+double evox (const std::string &expression);
