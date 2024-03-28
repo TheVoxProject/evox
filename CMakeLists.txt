@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15.0)
 
 project(evox LANGUAGES CXX)
-add_executable(tester tester.cpp evox.cpp)
+add_executable(tester tester.cpp)
 
 enable_testing()
 add_test(NAME TestMismatchedParentheses COMMAND tester "(2+3)*4)")
