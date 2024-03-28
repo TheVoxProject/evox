@@ -9,22 +9,3 @@ ColumnLimit:     0
 MaxEmptyLinesToKeep: 1
 # Put braces on the same line.
 BreakBeforeBraces: Attach
-# Pad operators with spaces.
-SpaceBeforeParens: Always
-SpaceInEmptyParentheses: false
-SpacesInParentheses: false
-SpacesInSquareBrackets: false
-SpacesInAngles:  false
-SpaceAfterTemplateKeyword: true
-SpacesInCStyleCastParentheses: false
-SpaceAfterCStyleCast: false
-SpacesInContainerLiterals: true
-SpaceBeforeAssignmentOperators: true
-SpaceBeforeInheritanceColon: true
-SpaceBeforeConstructorInitializerColon: true
-SpaceBeforeCaseColon: true
-SpacesInConditionalStatement: true
-SpacesAroundPointerQualifiers: Default
-SpacesBeforeTrailingComments: 1
-SpaceBetweenEmptyFunctionParens: false
-SpaceInEmptyBlock: false
