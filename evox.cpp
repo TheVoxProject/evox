@@ -97,7 +97,7 @@ double evox(const std::string &expression) {
 				open_parentheses_count++;
 			} else if (c == ')') {
 				if (open_parentheses_count == 0) {
-					throw std::runtime_error("Mismatched parentheses: Too many closing parentheses");
+					// throw std::runtime_error("Mismatched parentheses: Too many closing parentheses");
 				}
 				while (!operators.empty() && operators.top() != '(') {
 					char op = operators.top();
@@ -112,7 +112,9 @@ double evox(const std::string &expression) {
 					operators.pop();
 					open_parentheses_count--;
 				} else {
-					throw std::runtime_error("Mismatched parentheses: Too many closing parentheses");
+					// TODO: fix this with the Teensy.
+					// throw std::runtime_error("Mismatched parentheses: Too many closing parentheses");
+					return 0.0;
 				}
 			} else {
 				while (!operators.empty() && get_precedence(operators.top()) >= get_precedence(c)) {
@@ -132,7 +134,9 @@ double evox(const std::string &expression) {
 		numbers.push(current_number);
 	}
 	if (open_parentheses_count > 0) {
-		throw std::runtime_error("Mismatched parentheses: Too many opening parentheses");
+		// Fixme
+		// throw std::runtime_error("Mismatched parentheses: Too many opening parentheses");
+		return 0.0;
 	}
 	while (!operators.empty()) {
 		char op = operators.top();
@@ -144,7 +148,9 @@ double evox(const std::string &expression) {
 		numbers.push(apply_operation(a, b, op));
 	}
 	if (numbers.size() != 1) {
-		throw std::runtime_error("Invalid expression");
+		// Fixme
+		// throw std::runtime_error("Invalid expression");
+		return 0.0;
 	}
 	return numbers.top();
 }
